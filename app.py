@@ -30,10 +30,8 @@ def webhook():
 def makeWebhookResult(req):
     if req.get("result").get("action") != "re_iterate_info-yes":
         return {}
-    result = req.get("result")
-    contexts = result.get("contexts")
-    parameters=contexts[2].get("parameters")
-    gender = parameters.get("gender")
+    result=req.get("result")
+    gender=result.get('contexts')[0].get('parameters').get('name')
 
   #  cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500}
 
