@@ -31,12 +31,23 @@ def makeWebhookResult(req):
     if req.get("result").get("action") != "re_iterate_info-yes":
         return {}
     result=req.get("result")
-    gender=result.get('contexts')[0].get('name')
+    duration=result.get('contexts')[0].get('parameters').get('duration').get('date-period.original')
+    parameters=result.get('parameters')
+    person=parameters.get('person')
+    gender=parameters.get('gender')
+    problems=parameters.get('problems')
+    other_symptoms_list=[parameters.get('secondary_symptom'),parameters.get('tertiary_symptom'),parameters.get('psycological_symptoms')]
+    other_symptoms_list=([k for k in other_symptoms_list if k!='null'])
+    other_symptoms_list[-1]='and '+other_symptoms_list[-1]
 
   #  cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500}
 
  #   speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
-    speech="Your gender is "+gender
+    if other_symptoms_list!=[]:
+        speech="Your name is {} and your gender is {}. You seem to have {} since {}. In addition to this, you also have\
+         {}".format(person, gender, problems, duration, " ".join(other_symptoms_list))
+    else:
+        speech="Your name is {} and your gender is {}. You seem to have {} since {}. You have no other symptoms".format(person, gender, problems, duration) 
     print("Response:")
     print(speech)
 
