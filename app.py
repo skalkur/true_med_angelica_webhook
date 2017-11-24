@@ -72,7 +72,12 @@ def makeWebhookResult(req):
         problems=parameters.get('problems')
         other_symptoms_list=[parameters.get('secondary_symptom'),parameters.get('tertiary_symptom'),parameters.get('psycological_symptoms')]
         other_symptoms_list=([k for k in other_symptoms_list if k!='null'])
-        return {}
+        speech="Alright! Goodbye!"
+        return {
+                "speech":speech,
+                "displayText":speech,
+                "source":"apiai-angelica"
+                }
 
     else:
         return {}
