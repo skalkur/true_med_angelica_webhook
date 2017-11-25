@@ -56,10 +56,18 @@ def makeWebhookResult(req):
         print(speech)
     
         return {
-            "speech": speech,
-            "displayText": speech,
+            "speech": speech+" May I know what strains do you use for your condition?",
+            "displayText": speech+" May I know what strains do you use for your condition?",
             #"data": {},
-            # "contextOut": [],
+             "contextOut": [
+                            {
+                             "name":"strain",
+                             "parameters":{
+                                           "strain":"Snoop Dogg"
+                                           },
+                                           "lifespan":5
+                                           }
+                                           ],
             "source": "apiai-angelica"
         }
         
