@@ -24,7 +24,9 @@ def get_comparables(strain_taken):
     global strain_score
     return [k for k,v in strain_score.items() if v>strain_score[strain_taken]]
 
-
+def get_strains():
+    global strain_score
+    return [k for k,v in sorted(strain_score.items(), key=lambda k:k[1], reverse=True)]
              
 @app.route('/webhook', methods=['POST'])
 def webhook():
@@ -104,7 +106,7 @@ def makeWebhookResult(req):
         other_symptoms_list=([k for k in other_symptoms_list if k!='null'])
         patient_info['other_symptoms_list']=other_symptoms_list
 
-        speech="Alright! Goodbye!"
+        speech="Alright!"+" May I know what strains do you use for your condition?"
         return {
                 "speech":speech,
                 "displayText":speech,
@@ -144,7 +146,27 @@ def makeWebhookResult(req):
             "source": "apiai-angelica"
         }    
         
-        
+    elif req.get("result").get("action")=="no_strain_info_re-iterate_yes" or req.get("result").get("action")=="no_strain_info_re-iterate_no":
+        strains=get_strains()
+        speech="Not to worry, {}. Based on my knowledge, I shall provide you the top strains for {} ranked as per our metrics. \
+        They are {}. I hope I was able to help you out, {}".format(patient_info['person'],patient_info['problems'], ", ".join(strains), patient_info['person'])
+        print("Response:")
+        print(speech)
+        return {
+            "speech": speech,
+            "displayText": speech,
+            #"data": {},
+#             "contextOut": [
+#                            {
+#                             "name":"strain",
+#                             "parameters":{
+#                                           "strain":"Snoop Dogg"
+#                                           },
+#                                           "lifespan":5
+#                                           }
+#                                           ],
+            "source": "apiai-angelica"
+        }         
         
     else:
         return {}
