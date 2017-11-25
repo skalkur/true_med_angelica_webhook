@@ -47,7 +47,8 @@ def makeWebhookResult(req):
     global patient_info
     if req.get("result").get("action") == "re_iterate_info-yes":
         result=req.get("result")
-        duration=result.get('contexts')[0].get('parameters').get('duration').get('any.original')
+        duration=result.get('contexts')[0].get('parameters').\
+get('duration').get('any.original')
         patient_info['duration']=duration
         parameters=result.get('parameters')
         person=parameters.get('person')
@@ -56,13 +57,12 @@ def makeWebhookResult(req):
         patient_info['gender']=gender
         problems=parameters.get('problems')
         patient_info['problems']=problems
-        other_symptoms_list=[parameters.get('secondary_symptom'),parameters.get('tertiary_symptom'),parameters.get('psycological_symptoms')]
+        other_symptoms_list=[parameters.get('secondary_symptom'),parameters.\
+                             get('tertiary_symptom'),parameters.\
+get('psycological_symptoms')]
         other_symptoms_list=([k for k in other_symptoms_list if k!='null'])
         patient_info['other_symptoms_list']=other_symptoms_list
-    
-      #  cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500}
-    
-     #   speech = "The cost of shipping to " + zone + " is " + str(cost[zone]) + " euros."
+
         if other_symptoms_list!=[]:
             if len(other_symptoms_list)>1:
                 other_symptoms_list[-1]='and '+other_symptoms_list[-1]
@@ -72,6 +72,8 @@ def makeWebhookResult(req):
     
         else:
             speech="Your name is {} and your gender is {}. You seem to have {} since {}. You have no other symptoms.".format(person, gender, problems, duration) 
+        
+        
         print("Response:")
         print(speech)
     
@@ -128,11 +130,14 @@ def makeWebhookResult(req):
     
         else:
             speech="As per my knowledge, you seem to be taking the most effective strain for {}".format(patient_info['problems']) 
+        
+        print(patient_info)    
+            
         print("Response:")
         print(speech)
         return {
-            "speech": speech+" I hope I was able to help you out, %s" %(patient_info['person']),
-            "displayText": speech+" I hope I was able to help you out, %s" %(patient_info['person']),
+            "speech": speech+" I hope I was able to help you out, %s.\nTo start over afresh, type or say 'Start Over'. Goodbye." %(patient_info['person']),
+            "displayText": speech+" I hope I was able to help you out, %s.\nTo start over afresh, type or say 'Start Over'. Goodbye." %(patient_info['person']),
             #"data": {},
 #             "contextOut": [
 #                            {
@@ -149,9 +154,11 @@ def makeWebhookResult(req):
     elif req.get("result").get("action")=="no_strain_info_re-iterate_yes" or req.get("result").get("action")=="no_strain_info_re-iterate_no":
         strains=get_strains()
         speech="Not to worry, {}. Based on my knowledge, I shall provide you the top strains for {} ranked as per our metrics. \
-        They are {}. I hope I was able to help you out, {}".format(patient_info['person'],patient_info['problems'], ", ".join(strains), patient_info['person'])
+        They are {}. I hope I was able to help you out, {}.\nTo start over afresh, type or say 'Start Over'. Goodbye.".format(patient_info['person'],patient_info['problems'], ", ".join(strains), patient_info['person'])
+        print(patient_info)
         print("Response:")
         print(speech)
+        
         return {
             "speech": speech,
             "displayText": speech,
