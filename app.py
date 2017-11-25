@@ -152,9 +152,12 @@ get('psycological_symptoms')]
         }    
         
     elif req.get("result").get("action")=="no_strain_info_re-iterate_yes" or req.get("result").get("action")=="no_strain_info_re-iterate_no":
+        strain_taken="None"
         strains=get_strains()
         speech="Not to worry, {}. Based on my knowledge, I shall provide you the top strains for {} ranked as per our metrics. \
         They are {}. I hope I was able to help you out, {}.\nTo start over afresh, type or say 'Start Over'. Goodbye.".format(patient_info['person'],patient_info['problems'], ", ".join(strains), patient_info['person'])
+        patient_info["strain_taken"]=strain_taken
+        patient_info["comparables"]=strains
         print(patient_info)
         print("Response:")
         print(speech)
