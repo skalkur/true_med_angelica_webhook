@@ -45,7 +45,7 @@ def makeWebhookResult(req):
     global patient_info
     if req.get("result").get("action") == "re_iterate_info-yes":
         result=req.get("result")
-        duration=result.get('contexts')[0].get('parameters').get('duration').get('date-period.original')
+        duration=result.get('contexts')[0].get('parameters').get('duration').get('any.original')
         patient_info['duration']=duration
         parameters=result.get('parameters')
         person=parameters.get('person')
@@ -91,7 +91,7 @@ def makeWebhookResult(req):
         
     elif req.get("result").get("action")=="re-iterate_info-no":
         result=req.get("result")
-        duration=result.get('contexts')[0].get('parameters').get('duration').get('date-period.original')
+        duration=result.get('contexts')[0].get('parameters').get('duration').get('any.original')
         patient_info['duration']=duration
         parameters=result.get('parameters')
         person=parameters.get('person')
