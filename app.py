@@ -63,7 +63,7 @@ def makeWebhookResult(req):
             "source": "apiai-angelica"
         }
         
-    elif req.get("result").get("action")=="re_iterate_info-no":
+    elif req.get("result").get("action")=="re-iterate_info-no":
         result=req.get("result")
         duration=result.get('contexts')[0].get('parameters').get('duration').get('date-period.original')
         parameters=result.get('parameters')
