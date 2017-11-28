@@ -13,11 +13,11 @@ app = Flask(__name__)
 
 patient_info={}
 strain_score={
-              "Snoop Dogg":400,
-              "Eminem":240,
-              "NWA":350,
-              "Akon":750,
-              "Dr. Dre":425
+              "Blue Cheese":750,
+              "Bubba Kush":425,
+              "Gorilla Glue 4":400,
+              "Granddaddy Purple":350,
+              "Green Crack":240
               }
 
 def get_comparables(strain_taken):
