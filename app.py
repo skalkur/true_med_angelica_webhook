@@ -78,8 +78,8 @@ get('psycological_symptoms')]
         print(speech)
     
         return {
-            "speech": speech+" May I know what strains do you use for your condition?",
-            "displayText": speech+" May I know what strains do you use for your condition?",
+            "speech": speech+"In order to help give you better comparable strain(s) for your condition, may I know what strain do you use for your condition? If you do not use any, you can ask me to recommend the top ones. To do that, go ahead and enter 'Recommend me a few'.",
+            "displayText": speech+"In order to help give you better comparable strain(s) for your condition, may I know what strain do you use for your condition? If you do not use any, you can ask me to recommend the top ones. To do that, go ahead and enter 'Recommend me a few'.",
             #"data": {},
 #             "contextOut": [
 #                            {
@@ -108,7 +108,7 @@ get('psycological_symptoms')]
         other_symptoms_list=([k for k in other_symptoms_list if k!='null'])
         patient_info['other_symptoms_list']=other_symptoms_list
 
-        speech="Alright!"+" May I know what strains do you use for your condition?"
+        speech="Alright!"+"In order to help give you better comparable strain(s) for your condition, may I know what strain do you use for your condition? If you do not use any, you can ask me to recommend the top ones. To do that, go ahead and enter 'Recommend me a few'."
         return {
                 "speech":speech,
                 "displayText":speech,
