@@ -28,7 +28,7 @@ def get_strains():
     global strain_score
     return [k for k,v in sorted(strain_score.items(), key=lambda k:k[1], reverse=True)]
              
-@app.route('/webhook', methods=['GET'])
+@app.route('/webhook', methods=['POST'])
 def webhook():
     req = request.get_json(silent=True, force=True)
 
